@@ -3,9 +3,9 @@ from numpy.typing import NDArray
 
 
 class Solution:
-    def get_derivative(self, model_prediction: NDArray[np.float64], ground_truth: NDArray[np.float64], N: int, X: NDArray[np.float64], desired_weight: int) -> float:
+    def get_derivative(self, model_prediction: NDArray[np.float64], ground_truth: NDArray[np.float64], N: int, X: NDArray[np.float64]) -> float:
         # note that N is just len(X)
-        return -2 * np.dot(ground_truth - model_prediction, X[:, desired_weight]) / N
+        return -2 * np.dot(ground_truth - model_prediction, X) / N
 
     def get_model_prediction(self, X: NDArray[np.float64], weights: NDArray[np.float64]) -> NDArray[np.float64]:
         return np.squeeze(np.matmul(X, weights))
@@ -28,10 +28,7 @@ class Solution:
         weights = initial_weights
         for i in range(0, num_iterations):
             prediction = self.get_model_prediction(X, weights)
-            for j in range(0, len(weights)):
-                print(weights[j])
-                gradient_of_loss =  self.get_derivative(prediction, Y, len(X), X, j)
-                weights[j] -= self.learning_rate * gradient_of_loss 
-            print(weights)
+            gradient_of_loss =  self.get_derivative(prediction, Y, len(X), X)
+            weights -= self.learning_rate * gradient_of_loss 
         return np.round(weights, 5)
         pass
