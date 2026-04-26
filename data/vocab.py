@@ -20,7 +20,7 @@ class Solution:
             itos[counter] = ch
             counter += 1
         
-        print(stoi, itos)
+        # print(stoi, itos)
         # return
         return stoi, itos
 
