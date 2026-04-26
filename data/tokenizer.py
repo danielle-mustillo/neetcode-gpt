@@ -25,18 +25,18 @@ class Solution:
                 counts[(l1, l2)] += 1
 
             # find max pair
-            max_chars = []
+            max_chars = None
             max_found = -1
             for char_pair, count in counts.items():
                 if count > max_found:
-                    max_chars = [char_pair]
+                    max_chars = char_pair
                     max_found = count
                 elif count == max_found:
-                    max_chars.append(char_pair)
+                    max_chars = min(char_pair, max_chars)
             
             # sort to find the lexicographically first item
-            max_chars.sort()
-            first, second = max_chars[0]
+            # max_chars.sort()
+            first, second = max_chars
             merges.append([first, second])
 
             # merge back
